@@ -2,7 +2,9 @@ const app = new PIXI.Application();
 document.body.appendChild(app.view);
 
 // Get the texture for rope.
-const starTexture = PIXI.Texture.from('examples/assets/star.png');
+const starTexture = PIXI.Texture.from('scripts/resources/star.png');
+
+const planetTexture = PIXI.Texture.from('scripts/resources/rp.png');
 
 const starAmount = 1000;
 let cameraZ = 0;
@@ -14,11 +16,11 @@ const starStretch = 5;
 const starBaseSize = 0.05;
 
 
-// Create the stars
+// Create the stars or planets?
 const stars = [];
 for (let i = 0; i < starAmount; i++) {
     const star = {
-        sprite: new PIXI.Sprite(starTexture),
+        sprite: randomSprite(),
         z: 0,
         x: 0,
         y: 0,
@@ -28,6 +30,15 @@ for (let i = 0; i < starAmount; i++) {
     randomizeStar(star, true);
     app.stage.addChild(star.sprite);
     stars.push(star);
+}
+
+function randomSprite(){
+    let rand = Math.floor(Math.random() * 12);
+    if(rand === 10){
+        new PIXI.Sprite(planetTexture);
+    }else{
+        return new PIXI.Sprite(starTexture);
+    }
 }
 
 function randomizeStar(star, initial) {
