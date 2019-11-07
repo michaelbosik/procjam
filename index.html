@@ -2,10 +2,25 @@
 <html>
     <head>
         <title>Michael Bosik and Dan Duff</title>
-        <script src="scripts/pixi.js"></script>
+        <script src="pixi.js"></script>
+        <script src="main.js"></script>
     </head>
-    <body id="main">
-        <h1>hello</h1>
+    <body onload="main()">
+
+        <form enctype="multipart/form-data" action="/upload/image" method="post">
+            <input id="image-file" type="file" />
+        </form>
+        <button type = "button" onclick = "subBut()">Submit</button>
     </body>
-    <script src="scripts/main.js"></script>
+    <script>
+    function subBut(){
+        let photo = document.getElementById("image-file").files[0];  // file from input
+        let req = new XMLHttpRequest();
+        let formData = new FormData();
+
+        formData.append("photo", photo);                                
+        req.open("POST", 'upload');
+        req.send(formData);
+    }
+    </script>
 </html>

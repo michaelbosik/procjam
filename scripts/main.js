@@ -1,10 +1,4 @@
 const app = new PIXI.Application();
-document.body.appendChild(app.view);
-
-// Get the texture for rope.
-const starTexture = PIXI.Texture.from('scripts/resources/star.png');
-
-const planetTexture = PIXI.Texture.from('scripts/resources/rp.png');
 
 const starAmount = 1000;
 let cameraZ = 0;
@@ -13,31 +7,57 @@ const baseSpeed = 0.025;
 let speed = 0;
 let warpSpeed = 0;
 const starStretch = 5;
-const starBaseSize = 0.05;
-
-
-// Create the stars or planets?
+const starBaseSize = 0.3; //0.3
 const stars = [];
-for (let i = 0; i < starAmount; i++) {
-    const star = {
-        sprite: randomSprite(),
-        z: 0,
-        x: 0,
-        y: 0,
-    };
-    star.sprite.anchor.x = 0.5;
-    star.sprite.anchor.y = 0.7;
-    randomizeStar(star, true);
-    app.stage.addChild(star.sprite);
-    stars.push(star);
+const images = [];
+
+function main(){
+    loadImages();
+    document.body.appendChild(app.view);
+    placeSprites();
+    setInterval(() => {
+        warpSpeed = warpSpeed > 0 ? 0 : 1;
+    }, 5000);
+    listen();
+}
+
+function loadImages(){
+    fs = new FileReader();
+    fs.readdir("images/", function (err, files) {
+        if (err) {
+          console.error("Could not list the directory.", err);
+          process.exit(1);
+        }
+      
+        files.forEach(function (file, index) {
+            console.log(file);
+            images.push(PIXI.Texture.from(file));
+        });
+    });
+}
+
+function placeSprites(){
+    for (let i = 0; i < starAmount; i++) {
+        const star = {
+            sprite: randomSprite(),
+            z: 0,
+            x: 0,
+            y: 0,
+        };
+        star.sprite.anchor.x = 0.5;
+        star.sprite.anchor.y = 0.7;
+        randomizeStar(star, true);
+        app.stage.addChild(star.sprite);
+        stars.push(star);
+    }
 }
 
 function randomSprite(){
     let rand = Math.floor(Math.random() * 12);
     if(rand === 10){
-        new PIXI.Sprite(planetTexture);
-    }else{
         return new PIXI.Sprite(starTexture);
+    }else{
+        return new PIXI.Sprite(planetTexture);
     }
 }
 
@@ -51,14 +71,10 @@ function randomizeStar(star, initial) {
     star.y = Math.sin(deg) * distance;
 }
 
-// Change flight speed every 5 seconds
-setInterval(() => {
-    warpSpeed = warpSpeed > 0 ? 0 : 1;
-}, 5000);
-
+function listen(){
 // Listen for animate update
 app.ticker.add((delta) => {
-    // Simple easing. This should be changed to proper easing function when used for real.
+    // Simple easing. Should be changed to proper easing function when used for real.
     speed += (warpSpeed - speed) / 20;
     cameraZ += delta * 10 * (speed + baseSpeed);
     for (let i = 0; i < starAmount; i++) {
@@ -82,3 +98,4 @@ app.ticker.add((delta) => {
         star.sprite.rotation = Math.atan2(dyCenter, dxCenter) + Math.PI / 2;
     }
 });
+}
