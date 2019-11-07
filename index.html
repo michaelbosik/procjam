@@ -7,20 +7,9 @@
     </head>
     <body onload="main()">
 
-        <form enctype="multipart/form-data" action="/upload/image" method="post">
-            <input id="image-file" type="file" />
+        <form enctype="multipart/form-data" action="/upload" method="post">
+            <input id="image-file" type="file" accept="image/*" name = "photo">
+            <input type="submit" value="upload">
         </form>
-        <button type = "button" onclick = "subBut()">Submit</button>
     </body>
-    <script>
-    function subBut(){
-        let photo = document.getElementById("image-file").files[0];  // file from input
-        let req = new XMLHttpRequest();
-        let formData = new FormData();
-
-        formData.append("photo", photo);                                
-        req.open("POST", 'upload');
-        req.send(formData);
-    }
-    </script>
 </html>

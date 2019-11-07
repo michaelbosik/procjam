@@ -11,6 +11,9 @@ const starBaseSize = 0.3; //0.3
 const stars = [];
 const images = [];
 
+const starTexture = PIXI.Texture.from('images/kappatrans.png');
+const planetTexture = PIXI.Texture.from('rp.png');
+
 function main(){
     loadImages();
     document.body.appendChild(app.view);
@@ -22,19 +25,26 @@ function main(){
 }
 
 function loadImages(){
-    fs = new FileReader();
-    fs.readdir("images/", function (err, files) {
-        if (err) {
-          console.error("Could not list the directory.", err);
-          process.exit(1);
-        }
-      
-        files.forEach(function (file, index) {
-            console.log(file);
-            images.push(PIXI.Texture.from(file));
-        });
-    });
+    // fs = new FileReader();
+    // fs.readdir("images/", function (err, files) {
+    //     if (err) {
+    //       console.error("Could not list the directory.", err);
+    //       process.exit(1);
+    //     }
+    //
+    //     files.forEach(function (file, index) {
+    //         console.log(file);
+    //         images.push(PIXI.Texture.from(file));
+    //     });
+    // });
+
+    // const databaseRequest = new XMLHttpRequest();
+    // databaseRequest.onload = processImages();
+    // databaseRequest.open("get", "/getImages");
+    // databaseRequest.withCredentials = true;
+    // databaseRequest.send();
 }
+
 
 function placeSprites(){
     for (let i = 0; i < starAmount; i++) {
