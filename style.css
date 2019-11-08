@@ -1,0 +1,90 @@
+html{
+  background-color: #223945;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+input[type="file"]{
+  display: none;
+}
+
+.button{
+  margin-top: 25px;
+  height: 50px;
+  width: 100%;
+  background-color: #4287f5;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  transition: 0.25s;
+}
+.button:hover{
+  cursor: pointer;
+  background-color: #9af6fc;
+  transition: 0.25s;
+}
+
+label:hover{
+  cursor: pointer;
+  background-color: #9af6fc;
+  transition: 0.25s;
+}
+
+#mainCont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#filelist{
+  color : #FFF;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+
+p{
+    color: white;
+    text-align: center;
+}
+
+li{
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
