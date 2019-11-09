@@ -12,7 +12,7 @@ stretchValue = null, sizeSlider = null, sizeValue = null,
 baseSpeedSlider = null, baseSpeedValue = null, 
 amountSlider = null, amountValue = null;
 
-const imageAmount = function (){return amountSlider.value * 100;}
+const imageAmount = function (){return amountSlider.value*100;}
 const baseSpeed = function(){return baseSpeedSlider.value * 0.025;}
 const warpSpeed = function(){return warpSlider.value;}
 const imageStretch = function(){return stretchSlider.value/2;}
@@ -49,14 +49,16 @@ function assignElements(){
 
 //Reads in a file, adding it to the array of photos + appending it to the name list
 function readFile() {
-    if (this.files && this.files[0]) {    
-      var FR= new FileReader();    
-      FR.addEventListener("load", function(e) {
-            imageData[imageData.length] = e.target.result;
-            loadImages();
-      }); 
-      addFileName(this.files[0].name);
-      FR.readAsDataURL( this.files[0] );
+    if (this.files && this.files[0]) {
+        for(let i=0; i<this.files.length; i++) {
+            var FR = new FileReader();
+            FR.addEventListener("load", function (e) {
+                imageData[imageData.length] = e.target.result;
+                loadImages();
+            });
+            addFileName(this.files[i].name);
+            FR.readAsDataURL(this.files[i]);
+        }
     } 
 }
 
@@ -156,9 +158,9 @@ function setSliderValues(){
         baseSpeedValue.innerHTML = "Base Speed:" + this.value;
     }
 
-    amountValue.innerHTML = "Amount:" + amountSlider.value;
+    amountValue.innerHTML = "Amount:" + amountSlider.value*100;
     amountSlider.oninput = function() {
-        amountValue.innerHTML = "Amount:" + this.value;
+        amountValue.innerHTML = "Amount:" + this.value*100;
         loadImages();
     }
 }
